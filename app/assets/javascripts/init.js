@@ -239,7 +239,7 @@ function sendPoints(scoreObject) {
         data: scoreObject
     }).done(function (response) {
         console.log('YES - sendPoints');
-        alert("Your high score: " + response["high score"]);
+        alert("Your high score: " + response);
     }).fail(function (err) {
         alert(err);
     });
@@ -249,7 +249,7 @@ function sendPoints(scoreObject) {
 function updateTime()
 {
     gameTime += 1;
-    if(gameTime > 60)
+    if(gameTime > 15)
     {
         //End Game and Clean up
         timerText.text = "GAME OVER";
