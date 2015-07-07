@@ -10,4 +10,9 @@ class Player < ActiveRecord::Base
   validates :email, uniqueness: true, presence: true
   validates :name, uniqueness: true, presence: true
   validates :encrypted_password, length: { minimum: 5 }, presence: true
+
+  def high_score
+  	self.scores.maximum(:points)
+  end
+  
 end

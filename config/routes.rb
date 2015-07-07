@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   root to: "players#index"
 
   resources :players, except: [ :update, :edit, :destroy ] do
-    resources :scores, only: [ :index, :create ]
+    resources :scores, only: [ :index ]
   end
 
+  post '/scores', to: 'scores#create', as: 'score'
   get '/games', to: 'games#show', as: 'game'
   
 end
