@@ -7,3 +7,11 @@
 <h1>BUTTON AS WELL HERE</h1>
 <h4>it calls a thing</h4>
 <h5>start the mothafucking game</h5>
+
+<ul>
+	<% @top_10_players.each do |player| %>
+	<li>
+		<%= player.name %>: <%= player.scores.map{ |score| score.points }.sort.last %>
+	</li>
+	<% end %>
+</ul>
