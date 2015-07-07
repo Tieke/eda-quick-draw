@@ -17,29 +17,29 @@ ActiveRecord::Schema.define(version: 20150707034631) do
   enable_extension "plpgsql"
 
   create_table "players", force: :cascade do |t|
-    t.string   "name",                   default: "", null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "name",                               null: false
+    t.string   "email",                              null: false
+    t.string   "encrypted_password",                 null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",          default: 0, null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   add_index "players", ["email"], name: "index_players_on_email", unique: true, using: :btree
   add_index "players", ["reset_password_token"], name: "index_players_on_reset_password_token", unique: true, using: :btree
 
   create_table "scores", force: :cascade do |t|
-    t.integer  "points"
+    t.integer  "points",     default: 0, null: false
     t.integer  "player_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   add_index "scores", ["player_id"], name: "index_scores_on_player_id", using: :btree
