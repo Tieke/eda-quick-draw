@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :score do
-    points 1
-player nil
+    points rand(10..100)
+		player nil
   end
 
 end
