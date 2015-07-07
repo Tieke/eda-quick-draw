@@ -16,4 +16,5 @@
 	<% end %>
 </ul>
 
-<%= button_to "start the game!", game_path  %>
+<%= button_to "start the game!", game_path, method: :get  %>
+<%= button_to 'sign out', destroy_player_session_path, method: :delete  %>
