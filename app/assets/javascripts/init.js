@@ -232,22 +232,44 @@ function handleMouseDown(event)
     }
 }
 
+function sendPoints(scoreObject) {
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:3000/scores",
+        data: scoreObject
+    }).done(function (response) {
+        console.log('YES - sendPoints');
+        alert("Your high score: " + response["high score"]);
+    }).fail(function (err) {
+        alert(err);
+    });
+}
+
+
 function updateTime()
 {
-	gameTime += 1;
-	if(gameTime > 60)
-	{
-		//End Game and Clean up
-		timerText.text = "GAME OVER";
-		stage.removeChild(animation);
-		stage.removeChild(crossHair);
+    gameTime += 1;
+    if(gameTime > 60)
+    {
+        //End Game and Clean up
+        timerText.text = "GAME OVER";
+        stage.removeChild(animation);
+        stage.removeChild(crossHair);
         createjs.Sound.removeSound("background");
         var si =createjs.Sound.play("gameOverSound");
-		clearInterval(gameTimer);
-	}
-	else
-	{
-		timerText.text = "Time: " + gameTime
+        clearInterval(gameTimer);
+        sendPoints({"points": score});
+    }
+    else
+    {
+        timerText.text = "Time: " + gameTime
     createjs.Sound.play("tick");
-	}
+    }
 }
+
+
+
+
+
+
+
