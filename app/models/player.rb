@@ -5,4 +5,9 @@ class Player < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :scores
+
+  validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+{2,}\z/}
+  validates :email, uniqueness: true, presence: true
+  validates :name, uniqueness: true, presence: true
+  validates :password, length: { minimum: 5 }, presence: true
 end
