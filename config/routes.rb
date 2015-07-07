@@ -6,5 +6,6 @@ Rails.application.routes.draw do
     resources :scores, only: [ :index, :create ]
   end
 
+  get '/games', to: 'games#show', as: 'game'
   
 end
