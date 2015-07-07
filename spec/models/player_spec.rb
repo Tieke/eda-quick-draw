@@ -16,7 +16,4 @@ RSpec.describe Player, type: :model do
 		it { should validate_presence_of(:encrypted_password)}
 	end
 
-
-
-
 end

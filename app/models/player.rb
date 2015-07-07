@@ -9,5 +9,5 @@ class Player < ActiveRecord::Base
   validates :email, format: { with: /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+{2,}\z/}
   validates :email, uniqueness: true, presence: true
   validates :name, uniqueness: true, presence: true
-  validates :password, length: { minimum: 5 }, presence: true
+  validates :encrypted_password, length: { minimum: 5 }, presence: true
 end
