@@ -103,13 +103,13 @@ function queueLoaded(event)
     // Create bat sprite
     createEnemy();
 
-   /*
-    // Create crosshair
-    crossHair = new createjs.Bitmap(queue.getResult("crossHair"));
-    crossHair.x = WIDTH/2;
-    crossHair.y = HEIGHT/2;
-    stage.addChild(crossHair);
-    */
+   
+    // // Create crosshair
+    // crossHair = new createjs.Bitmap(queue.getResult("crossHair"));
+    // crossHair.x = WIDTH/2;
+    // crossHair.y = HEIGHT/2;
+    // stage.addChild(crossHair);
+    
 
     // Add ticker
     createjs.Ticker.setFPS(15);
@@ -169,14 +169,14 @@ function tickEvent()
 	
 }
 
-/*
+
 function handleMouseMove(event)
 {
     //Offset the position by 45 pixels so mouse is in center of crosshair
     crossHair.x = event.clientX-45;
     crossHair.y = event.clientY-45;
 }
-*/
+
 
 function handleMouseDown(event)
 {
