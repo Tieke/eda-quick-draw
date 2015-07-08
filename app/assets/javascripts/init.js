@@ -9,6 +9,10 @@ var stage;
 var animation;
 var deathAnimation;
 var spriteSheet;
+var charlesSpritesheet
+var kerwinSpritesheet
+var darcySpritesheet
+var samsonSpritesheet
 var enemyXPos=100;
 var enemyYPos=100;
 var enemyXSpeed = 1.5;
@@ -41,6 +45,7 @@ function onWindowResize() {
 
 window.onload = function()
 {
+
     //Set up the Canvas with Size and height
     var canvas = document.getElementById('myCanvas');
     context = canvas.getContext('2d');
@@ -56,25 +61,26 @@ window.onload = function()
 
     //Create a load manifest for all assets
     queue.loadManifest([
-        {id: 'backgroundImage', src: 'assets/background.png'},
+        {id: 'backgroundImage', src: 'assets/the-floor.png'},
         {id: 'paddle', src: 'assets/paddle.png'},
         {id: 'crossHair', src: 'assets/crosshair.png'},
         {id: 'ballhit', src: 'assets/ballhit.mp3'},
-        {id: 'background', src: 'assets/countryside.mp3'},
+        {id: 'background', src: 'assets/background.mp3'},
         {id: 'gameOverSound', src: 'assets/gameOver.mp3'},
         {id: 'tick', src: 'assets/tick.mp3'},
         {id: 'deathSound', src: 'assets/die.mp3'},
-        {id: 'batSpritesheet', src: 'assets/batSpritesheet.png'},
-        {id: 'danSpritesheet', src: 'assets/dan-Spritesheet.png'},
-        {id: 'eugeneSpritesheet', src: 'assets/eugene-Spritesheet.png'},
-        {id: 'joshSpritesheet', src: 'assets/josh-Spritesheet.png'},
+        {id: 'tutorsSpritesheet', src: 'assets/all-tutors-Spritesheet.png'},
         {id: 'batDeath', src: 'assets/batDeath.png'},
     ]);
     queue.load();
 
     
     //Create a timer that updates once per second
+   setGameTimer = function() {
     gameTimer = setInterval(updateTime, 1000);
+  }
+
+  setTimeout(setGameTimer(), 5000)
 
 }
 
@@ -112,41 +118,33 @@ function queueLoaded(event)
 
     // Play background sound
     var backgroundSound = createjs.Sound.createInstance("background")
-    backgroundSound.play({loop: -1});
+    backgroundSound.play();
 
     // add intance of ballhit sound
     ballhitSound = createjs.Sound.createInstance("ballhit")
-    console.log(ballhitSound.volume * createjs.Sound.getVolume())
+    console.log(ballhitSound.volume * createjs.Sound.getVolume());
 
     //add instance of deathSound
-    deathSound = createjs.Sound.createInstance("deathSound")
+    deathSound = createjs.Sound.createInstance("deathSound");
 
     // Create bat spritesheet
-    batSpritesheet = new createjs.SpriteSheet({
-        "images": [queue.getResult('batSpritesheet')],
+    tutorsSpritesheet = new createjs.SpriteSheet({
+        "images": [queue.getResult('tutorsSpritesheet')],
         "frames": {"width": 198, "height": 117},
-        "animations": { "flap": [0,4] }
+        "animations": { "dan":   [0,4],
+                        "darcy":  [5,9],
+                        "eugene": [10,14],
+                        "josh":   [15,19],
+                        "charles":[20,24],
+                        "kerwin": [25,29],
+                        "michael":[30,34],
+                        "raquel": [35,39],
+                        "rohan":  [40,44],
+                        "samson": [45,49]}
     });    
 
-    danSpritesheet = new createjs.SpriteSheet({
-        "images": [queue.getResult('danSpritesheet')],
-        "frames": {"width": 198, "height": 117},
-        "animations": { "flap": [0,4] }
-    });    
 
-    eugeneSpritesheet = new createjs.SpriteSheet({
-        "images": [queue.getResult('eugeneSpritesheet')],
-        "frames": {"width": 198, "height": 117},
-        "animations": { "flap": [0,4] }
-    });    
-
-    joshSpritesheet = new createjs.SpriteSheet({
-        "images": [queue.getResult('joshSpritesheet')],
-        "frames": {"width": 198, "height": 117},
-        "animations": { "flap": [0,4] }
-    });
-
-    spriteSheetArray = [batSpritesheet, danSpritesheet, eugeneSpritesheet, joshSpritesheet]
+    spriteAnimationArray = ["dan", "darcy", "eugene", "josh", "charles", "kerwin", "michael", "raquel", "rohan", "samson"]
 
     // Create bat death spritesheet
     batDeathSpriteSheet = new createjs.SpriteSheet({
@@ -174,8 +172,8 @@ function getRandomInt(min, max) {
 
 function createEnemy()
 {   
-    var numOfEnemies = spriteSheetArray.length
-	animation = new createjs.Sprite(spriteSheetArray[getRandomInt(0, numOfEnemies)], "flap");
+    var numOfEnemies = spriteAnimationArray.length
+	animation = new createjs.Sprite(tutorsSpritesheet, spriteAnimationArray[getRandomInt(0, numOfEnemies)]);
     animation.regX = 99;
     animation.regY = 58;
     animation.x = enemyXPos;
@@ -300,14 +298,15 @@ function sendPoints(scoreObject) {
 function updateTime()
 {
     gameTime += 1;
-    if(gameTime > 30)
+    if(gameTime > 60)
     {
         //End Game and Clean up
         timerText.text = "fin";
         stage.removeChild(animation);
         stage.removeChild(crossHair);
-        createjs.Sound.removeSound("background");
-        var si =createjs.Sound.play("gameOverSound");
+        stage.removeChild(paddle);
+        createjs.Sound.removeSound("ballhit");
+        // var si =createjs.Sound.play("gameOverSound");
         clearInterval(gameTimer);
         sendPoints({"points": score});
     }
@@ -317,3 +316,6 @@ function updateTime()
     createjs.Sound.play("tick");
     }
 }
+
+
+
