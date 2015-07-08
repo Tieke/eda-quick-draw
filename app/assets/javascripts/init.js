@@ -19,6 +19,8 @@ var gameTimer;
 var gameTime = 0;
 var timerText;
 var backgroundImage;
+var ballhitSound;
+var deathSound
 
 window.addEventListener( 'resize', onWindowResize, false );
 
@@ -66,7 +68,7 @@ window.onload = function()
         {id: 'backgroundImage', src: 'assets/background.png'},
         {id: 'paddle', src: 'assets/paddle.png'},
         {id: 'crossHair', src: 'assets/crosshair.png'},
-        {id: 'shot', src: 'assets/shot.mp3'},
+        {id: 'ballhit', src: 'assets/ballhit.mp3'},
         {id: 'background', src: 'assets/countryside.mp3'},
         {id: 'gameOverSound', src: 'assets/gameOver.mp3'},
         {id: 'tick', src: 'assets/tick.mp3'},
@@ -117,7 +119,15 @@ function queueLoaded(event)
     stage.addChild(crossHair);
 
     // Play background sound
-    createjs.Sound.play("background", {loop: -1});
+    var backgroundSound = createjs.Sound.createInstance("background")
+    backgroundSound.play({loop: -1});
+
+    // add intance of ballhit sound
+    ballhitSound = createjs.Sound.createInstance("ballhit")
+    console.log(ballhitSound.volume * createjs.Sound.getVolume())
+
+    //add instance of deathSound
+    deathSound = createjs.Sound.createInstance("deathSound")
 
     // Create bat spritesheet
     spriteSheet = new createjs.SpriteSheet({
@@ -218,22 +228,23 @@ function handleMouseDown(event) {
     // createjs.Tween.get(crossHair).to({alpha: 0},1000);
     
 
-    //Play Gunshot sound
-    createjs.Sound.play("shot");
+    //Play Gunballhit sound
+    ballhitSound.play({volume:20})
+    // createjs.Sound.play("ballhit").setVolume;
 
     //Increase speed of enemy slightly
     enemyXSpeed *= 1.05;
     enemyYSpeed *= 1.06;
 
     //Obtain Shot position
-    var shotX = Math.round(event.clientX);
-    var shotY = Math.round(event.clientY);
+    var ballhitX = Math.round(event.clientX);
+    var ballhitY = Math.round(event.clientY);
     var spriteX = Math.round(animation.x);
     var spriteY = Math.round(animation.y);
 
     // Compute the X and Y distance using absolte value
-    var distX = Math.abs(shotX - spriteX);
-    var distY = Math.abs(shotY - spriteY);
+    var distX = Math.abs(ballhitX - spriteX);
+    var distY = Math.abs(ballhitY - spriteY);
 
     // Anywhere in the body or head is a hit - but not the wings
     if(distX < 30 && distY < 59 )
@@ -243,7 +254,7 @@ function handleMouseDown(event) {
     	batDeath();
     	score += 100;
     	scoreText.text = "1UP: " + score.toString();
-    	createjs.Sound.play("deathSound");
+        deathSound.play();
     	
         //Make it harder next time
     	enemyYSpeed *= 1.25;
