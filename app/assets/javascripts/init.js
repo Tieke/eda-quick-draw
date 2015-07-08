@@ -64,6 +64,7 @@ window.onload = function()
      */
     queue.loadManifest([
         {id: 'backgroundImage', src: 'assets/background.png'},
+        {id: 'paddle', src: 'assets/paddle.png'},
         {id: 'crossHair', src: 'assets/crosshair.png'},
         {id: 'shot', src: 'assets/shot.mp3'},
         {id: 'background', src: 'assets/countryside.mp3'},
@@ -103,6 +104,18 @@ function queueLoaded(event)
     timerText.y = 10;
     stage.addChild(timerText);
 
+    // Create paddle
+    paddle = new createjs.Bitmap(queue.getResult("paddle"));
+    paddle.x = windowWidth/2;
+    paddle.y = windowHeight - 195;
+    stage.addChild(paddle);
+
+    // Create crosshair
+    crossHair = new createjs.Bitmap(queue.getResult("crossHair"));
+    crossHair.x = windowWidth/2;
+    crossHair.y = windowHeight/2;
+    stage.addChild(crossHair);
+
     // Play background sound
     createjs.Sound.play("background", {loop: -1});
 
@@ -115,21 +128,15 @@ function queueLoaded(event)
 
     // Create bat death spritesheet
     batDeathSpriteSheet = new createjs.SpriteSheet({
-    	"images": [queue.getResult('batDeath')],
-    	"frames": {"width": 198, "height" : 148},
-    	"animations": {"die": [0,7, false,1 ] }
+        "images": [queue.getResult('batDeath')],
+        "frames": {"width": 198, "height" : 148},
+        "animations": {"die": [0,7, false,1 ] }
     });
 
     // Create bat sprite
     createEnemy();
 
    
-    // // Create crosshair
-    // crossHair = new createjs.Bitmap(queue.getResult("crossHair"));
-    // crossHair.x = windowWidth/2;
-    // crossHair.y = windowHeight/2;
-    // stage.addChild(crossHair);
-    
 
     // Add ticker
     createjs.Ticker.setFPS(15);
@@ -137,7 +144,7 @@ function queueLoaded(event)
     createjs.Ticker.addEventListener('tick', tickEvent);
 
     // Set up events AFTER the game is loaded
-   // window.onmousemove = handleMouseMove;
+    window.onmousemove = handleMouseMove;
     window.onmousedown = handleMouseDown;
 }
 
@@ -194,20 +201,23 @@ function handleMouseMove(event)
 {
     //Offset the position by 45 pixels so mouse is in center of crosshair
     crossHair.x = event.clientX-45;
-    crossHair.y = event.clientY-45;
+    crossHair.y = event.clientY-35;
+    paddle.x = event.clientX-45;
+    paddle.y = windowHeight-195;
+
 }
 
 
-function handleMouseDown(event)
-{
+function handleMouseDown(event) {
     
     //Display CrossHair
-    crossHair = new createjs.Bitmap(queue.getResult("crossHair"));
-    crossHair.x = event.clientX-45;
-    crossHair.y = event.clientY-45;
-    stage.addChild(crossHair);
-    createjs.Tween.get(crossHair).to({alpha: 0},1000);
+    // crossHair = new createjs.Bitmap(queue.getResult("crossHair"));
+    // crossHair.x = event.clientX-45;
+    // crossHair.y = event.clientY-45;
+    // stage.addChild(crossHair);
+    // createjs.Tween.get(crossHair).to({alpha: 0},1000);
     
+
     //Play Gunshot sound
     createjs.Sound.play("shot");
 
