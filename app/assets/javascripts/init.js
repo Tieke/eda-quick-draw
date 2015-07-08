@@ -1,7 +1,7 @@
 var context;
 var queue;
-var WIDTH = 1024;
-var HEIGHT = 768;
+var windowWidth = window.innerWidth;
+var windowHeight = window.innerHeight;
 var mouseXPosition;
 var mouseYPosition;
 var batImage;
@@ -18,6 +18,24 @@ var scoreText;
 var gameTimer;
 var gameTime = 0;
 var timerText;
+var backgroundImage;
+
+window.addEventListener( 'resize', onWindowResize, false );
+
+function onWindowResize() {
+    windowWidth = window.innerWidth
+    windowHeight = window.innerHeight;
+    var canvas = document.getElementById('myCanvas');
+    
+    context = canvas.getContext('2d');
+    context.canvas.width = windowWidth;
+    context.canvas.height = windowHeight;
+    backgroundImage.scaleY = windowHeight / 768
+    backgroundImage.scaleX = windowWidth / 1024
+    timerText.x = windowWidth - 180;
+    timerText.y = 10;
+}
+
 
 window.onload = function()
 {
@@ -27,8 +45,8 @@ window.onload = function()
      */
     var canvas = document.getElementById('myCanvas');
     context = canvas.getContext('2d');
-    context.canvas.width = WIDTH;
-    context.canvas.height = HEIGHT;
+    context.canvas.width = windowWidth;
+    context.canvas.height = windowHeight;
     stage = new createjs.Stage("myCanvas");
 
     /*
@@ -68,18 +86,20 @@ window.onload = function()
 function queueLoaded(event)
 {
     // Add background image
-    var backgroundImage = new createjs.Bitmap(queue.getResult("backgroundImage"))
+    backgroundImage = new createjs.Bitmap(queue.getResult("backgroundImage"))
+    backgroundImage.scaleY = windowHeight / 768
+    backgroundImage.scaleX = windowWidth / 1024
     stage.addChild(backgroundImage);
 
     //Add Score
-    scoreText = new createjs.Text("1UP: " + score.toString(), "36px Arial", "#FFF");
+    scoreText = new createjs.Text("score: " + score.toString(), "36px Arial", "#FFF");
     scoreText.x = 10;
     scoreText.y = 10;
     stage.addChild(scoreText);
 
     //Ad Timer
     timerText = new createjs.Text("Time: " + gameTime.toString(), "36px Arial", "#FFF");
-    timerText.x = 800;
+    timerText.x = windowWidth - 180;
     timerText.y = 10;
     stage.addChild(timerText);
 
@@ -106,8 +126,8 @@ function queueLoaded(event)
    
     // // Create crosshair
     // crossHair = new createjs.Bitmap(queue.getResult("crossHair"));
-    // crossHair.x = WIDTH/2;
-    // crossHair.y = HEIGHT/2;
+    // crossHair.x = windowWidth/2;
+    // crossHair.y = windowHeight/2;
     // stage.addChild(crossHair);
     
 
@@ -146,7 +166,7 @@ function batDeath()
 function tickEvent()
 {
 	//Make sure enemy bat is within game boundaries and move enemy Bat
-	if(enemyXPos < WIDTH && enemyXPos > 0)
+	if(enemyXPos < windowWidth && enemyXPos > 0)
 	{
 		enemyXPos += enemyXSpeed;
 	} else 
@@ -154,7 +174,7 @@ function tickEvent()
 		enemyXSpeed = enemyXSpeed * (-1);
 		enemyXPos += enemyXSpeed;
 	}
-	if(enemyYPos < HEIGHT && enemyYPos > 0)
+	if(enemyYPos < windowHeight && enemyYPos > 0)
 	{
 		enemyYPos += enemyYSpeed;
 	} else
@@ -249,10 +269,10 @@ function sendPoints(scoreObject) {
 function updateTime()
 {
     gameTime += 1;
-    if(gameTime > 15)
+    if(gameTime > 30)
     {
         //End Game and Clean up
-        timerText.text = "GAME OVER";
+        timerText.text = "fin";
         stage.removeChild(animation);
         stage.removeChild(crossHair);
         createjs.Sound.removeSound("background");

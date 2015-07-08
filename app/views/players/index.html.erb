@@ -11,7 +11,7 @@
 <ul>
 	<% @top_10_players.each do |player| %>
 	<li>
-		<%= player.name %>: <%= player.scores.map{ |score| score.points }.sort.last %>
+		<%= player[0] %>: <%= player[1] %>
 	</li>
 	<% end %>
 </ul>
