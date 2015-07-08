@@ -222,7 +222,7 @@ function handleMouseMove(event)
 {
     //Offset the position by 45 pixels so mouse is in center of crosshair
     crossHair.x = event.clientX-45;
-    crossHair.y = event.clientY-35;
+    crossHair.y = event.clientY-45;
     paddle.x = event.clientX-45;
     paddle.y = windowHeight-195;
 
