@@ -19,6 +19,9 @@ var gameTimer;
 var gameTime = 0;
 var timerText;
 var backgroundImage;
+var ballhitSound;
+var deathSound
+var spriteSheetArray;
 
 window.addEventListener( 'resize', onWindowResize, false );
 
@@ -36,50 +39,41 @@ function onWindowResize() {
     timerText.y = 10;
 }
 
-
 window.onload = function()
 {
-    /*
-     *      Set up the Canvas with Size and height
-     *
-     */
+    //Set up the Canvas with Size and height
     var canvas = document.getElementById('myCanvas');
     context = canvas.getContext('2d');
     context.canvas.width = windowWidth;
     context.canvas.height = windowHeight;
     stage = new createjs.Stage("myCanvas");
 
-    /*
-     *      Set up the Asset Queue and load sounds
-     *
-     */
+    //Set up the Asset Queue and load sounds 
     queue = new createjs.LoadQueue(false);
     queue.installPlugin(createjs.Sound);
     queue.on("complete", queueLoaded, this);
     createjs.Sound.alternateExtensions = ["ogg"];
 
-    /*
-     *      Create a load manifest for all assets
-     *
-     */
+    //Create a load manifest for all assets
     queue.loadManifest([
         {id: 'backgroundImage', src: 'assets/background.png'},
         {id: 'paddle', src: 'assets/paddle.png'},
         {id: 'crossHair', src: 'assets/crosshair.png'},
-        {id: 'shot', src: 'assets/shot.mp3'},
+        {id: 'ballhit', src: 'assets/ballhit.mp3'},
         {id: 'background', src: 'assets/countryside.mp3'},
         {id: 'gameOverSound', src: 'assets/gameOver.mp3'},
         {id: 'tick', src: 'assets/tick.mp3'},
         {id: 'deathSound', src: 'assets/die.mp3'},
         {id: 'batSpritesheet', src: 'assets/batSpritesheet.png'},
+        {id: 'danSpritesheet', src: 'assets/dan-Spritesheet.png'},
+        {id: 'eugeneSpritesheet', src: 'assets/eugene-Spritesheet.png'},
+        {id: 'joshSpritesheet', src: 'assets/josh-Spritesheet.png'},
         {id: 'batDeath', src: 'assets/batDeath.png'},
     ]);
     queue.load();
 
-    /*
-     *      Create a timer that updates once per second
-     *
-     */
+    
+    //Create a timer that updates once per second
     gameTimer = setInterval(updateTime, 1000);
 
 }
@@ -117,14 +111,42 @@ function queueLoaded(event)
     stage.addChild(crossHair);
 
     // Play background sound
-    createjs.Sound.play("background", {loop: -1});
+    var backgroundSound = createjs.Sound.createInstance("background")
+    backgroundSound.play({loop: -1});
+
+    // add intance of ballhit sound
+    ballhitSound = createjs.Sound.createInstance("ballhit")
+    console.log(ballhitSound.volume * createjs.Sound.getVolume())
+
+    //add instance of deathSound
+    deathSound = createjs.Sound.createInstance("deathSound")
 
     // Create bat spritesheet
-    spriteSheet = new createjs.SpriteSheet({
+    batSpritesheet = new createjs.SpriteSheet({
         "images": [queue.getResult('batSpritesheet')],
         "frames": {"width": 198, "height": 117},
         "animations": { "flap": [0,4] }
+    });    
+
+    danSpritesheet = new createjs.SpriteSheet({
+        "images": [queue.getResult('danSpritesheet')],
+        "frames": {"width": 198, "height": 117},
+        "animations": { "flap": [0,4] }
+    });    
+
+    eugeneSpritesheet = new createjs.SpriteSheet({
+        "images": [queue.getResult('eugeneSpritesheet')],
+        "frames": {"width": 198, "height": 117},
+        "animations": { "flap": [0,4] }
+    });    
+
+    joshSpritesheet = new createjs.SpriteSheet({
+        "images": [queue.getResult('joshSpritesheet')],
+        "frames": {"width": 198, "height": 117},
+        "animations": { "flap": [0,4] }
     });
+
+    spriteSheetArray = [batSpritesheet, danSpritesheet, eugeneSpritesheet, joshSpritesheet]
 
     // Create bat death spritesheet
     batDeathSpriteSheet = new createjs.SpriteSheet({
@@ -133,10 +155,8 @@ function queueLoaded(event)
         "animations": {"die": [0,7, false,1 ] }
     });
 
-    // Create bat sprite
+    // Create random sprite
     createEnemy();
-
-   
 
     // Add ticker
     createjs.Ticker.setFPS(15);
@@ -148,9 +168,14 @@ function queueLoaded(event)
     window.onmousedown = handleMouseDown;
 }
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 function createEnemy()
-{
-	animation = new createjs.Sprite(spriteSheet, "flap");
+{   
+    var numOfEnemies = spriteSheetArray.length
+	animation = new createjs.Sprite(spriteSheetArray[getRandomInt(0, numOfEnemies)], "flap");
     animation.regX = 99;
     animation.regY = 58;
     animation.x = enemyXPos;
@@ -192,8 +217,6 @@ function tickEvent()
 
 	animation.x = enemyXPos;
 	animation.y = enemyYPos;
-
-	
 }
 
 
@@ -207,7 +230,6 @@ function handleMouseMove(event)
 
 }
 
-
 function handleMouseDown(event) {
     
     //Display CrossHair
@@ -218,22 +240,22 @@ function handleMouseDown(event) {
     // createjs.Tween.get(crossHair).to({alpha: 0},1000);
     
 
-    //Play Gunshot sound
-    createjs.Sound.play("shot");
+    //Play ballhit sound
+    ballhitSound.play({volume:20})
 
     //Increase speed of enemy slightly
     enemyXSpeed *= 1.05;
     enemyYSpeed *= 1.06;
 
     //Obtain Shot position
-    var shotX = Math.round(event.clientX);
-    var shotY = Math.round(event.clientY);
+    var ballhitX = Math.round(event.clientX);
+    var ballhitY = Math.round(event.clientY);
     var spriteX = Math.round(animation.x);
     var spriteY = Math.round(animation.y);
 
     // Compute the X and Y distance using absolte value
-    var distX = Math.abs(shotX - spriteX);
-    var distY = Math.abs(shotY - spriteY);
+    var distX = Math.abs(ballhitX - spriteX);
+    var distY = Math.abs(ballhitY - spriteY);
 
     // Anywhere in the body or head is a hit - but not the wings
     if(distX < 30 && distY < 59 )
@@ -243,7 +265,7 @@ function handleMouseDown(event) {
     	batDeath();
     	score += 100;
     	scoreText.text = "1UP: " + score.toString();
-    	createjs.Sound.play("deathSound");
+        deathSound.play();
     	
         //Make it harder next time
     	enemyYSpeed *= 1.25;
@@ -275,7 +297,6 @@ function sendPoints(scoreObject) {
     });
 }
 
-
 function updateTime()
 {
     gameTime += 1;
@@ -296,10 +317,3 @@ function updateTime()
     createjs.Sound.play("tick");
     }
 }
-
-
-
-
-
-
-
