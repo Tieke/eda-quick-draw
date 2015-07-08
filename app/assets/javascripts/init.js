@@ -21,6 +21,7 @@ var timerText;
 var backgroundImage;
 var ballhitSound;
 var deathSound
+var spriteSheetArray;
 
 window.addEventListener( 'resize', onWindowResize, false );
 
@@ -38,32 +39,22 @@ function onWindowResize() {
     timerText.y = 10;
 }
 
-
 window.onload = function()
 {
-    /*
-     *      Set up the Canvas with Size and height
-     *
-     */
+    //Set up the Canvas with Size and height
     var canvas = document.getElementById('myCanvas');
     context = canvas.getContext('2d');
     context.canvas.width = windowWidth;
     context.canvas.height = windowHeight;
     stage = new createjs.Stage("myCanvas");
 
-    /*
-     *      Set up the Asset Queue and load sounds
-     *
-     */
+    //Set up the Asset Queue and load sounds 
     queue = new createjs.LoadQueue(false);
     queue.installPlugin(createjs.Sound);
     queue.on("complete", queueLoaded, this);
     createjs.Sound.alternateExtensions = ["ogg"];
 
-    /*
-     *      Create a load manifest for all assets
-     *
-     */
+    //Create a load manifest for all assets
     queue.loadManifest([
         {id: 'backgroundImage', src: 'assets/background.png'},
         {id: 'paddle', src: 'assets/paddle.png'},
@@ -74,14 +65,15 @@ window.onload = function()
         {id: 'tick', src: 'assets/tick.mp3'},
         {id: 'deathSound', src: 'assets/die.mp3'},
         {id: 'batSpritesheet', src: 'assets/batSpritesheet.png'},
+        {id: 'danSpritesheet', src: 'assets/dan-Spritesheet.png'},
+        {id: 'eugeneSpritesheet', src: 'assets/eugene-Spritesheet.png'},
+        {id: 'joshSpritesheet', src: 'assets/josh-Spritesheet.png'},
         {id: 'batDeath', src: 'assets/batDeath.png'},
     ]);
     queue.load();
 
-    /*
-     *      Create a timer that updates once per second
-     *
-     */
+    
+    //Create a timer that updates once per second
     gameTimer = setInterval(updateTime, 1000);
 
 }
@@ -130,11 +122,31 @@ function queueLoaded(event)
     deathSound = createjs.Sound.createInstance("deathSound")
 
     // Create bat spritesheet
-    spriteSheet = new createjs.SpriteSheet({
+    batSpritesheet = new createjs.SpriteSheet({
         "images": [queue.getResult('batSpritesheet')],
         "frames": {"width": 198, "height": 117},
         "animations": { "flap": [0,4] }
+    });    
+
+    danSpritesheet = new createjs.SpriteSheet({
+        "images": [queue.getResult('danSpritesheet')],
+        "frames": {"width": 198, "height": 117},
+        "animations": { "flap": [0,4] }
+    });    
+
+    eugeneSpritesheet = new createjs.SpriteSheet({
+        "images": [queue.getResult('eugeneSpritesheet')],
+        "frames": {"width": 198, "height": 117},
+        "animations": { "flap": [0,4] }
+    });    
+
+    joshSpritesheet = new createjs.SpriteSheet({
+        "images": [queue.getResult('joshSpritesheet')],
+        "frames": {"width": 198, "height": 117},
+        "animations": { "flap": [0,4] }
     });
+
+    spriteSheetArray = [batSpritesheet, danSpritesheet, eugeneSpritesheet, joshSpritesheet]
 
     // Create bat death spritesheet
     batDeathSpriteSheet = new createjs.SpriteSheet({
@@ -143,10 +155,8 @@ function queueLoaded(event)
         "animations": {"die": [0,7, false,1 ] }
     });
 
-    // Create bat sprite
+    // Create random sprite
     createEnemy();
-
-   
 
     // Add ticker
     createjs.Ticker.setFPS(15);
@@ -158,9 +168,14 @@ function queueLoaded(event)
     window.onmousedown = handleMouseDown;
 }
 
+function getRandomInt(min, max) {
+  return Math.floor(Math.random() * (max - min)) + min;
+}
+
 function createEnemy()
-{
-	animation = new createjs.Sprite(spriteSheet, "flap");
+{   
+    var numOfEnemies = spriteSheetArray.length
+	animation = new createjs.Sprite(spriteSheetArray[getRandomInt(0, numOfEnemies)], "flap");
     animation.regX = 99;
     animation.regY = 58;
     animation.x = enemyXPos;
@@ -202,8 +217,6 @@ function tickEvent()
 
 	animation.x = enemyXPos;
 	animation.y = enemyYPos;
-
-	
 }
 
 
@@ -217,7 +230,6 @@ function handleMouseMove(event)
 
 }
 
-
 function handleMouseDown(event) {
     
     //Display CrossHair
@@ -228,9 +240,8 @@ function handleMouseDown(event) {
     // createjs.Tween.get(crossHair).to({alpha: 0},1000);
     
 
-    //Play Gunballhit sound
+    //Play ballhit sound
     ballhitSound.play({volume:20})
-    // createjs.Sound.play("ballhit").setVolume;
 
     //Increase speed of enemy slightly
     enemyXSpeed *= 1.05;
@@ -286,7 +297,6 @@ function sendPoints(scoreObject) {
     });
 }
 
-
 function updateTime()
 {
     gameTime += 1;
@@ -307,10 +317,3 @@ function updateTime()
     createjs.Sound.play("tick");
     }
 }
-
-
-
-
-
-
-
