@@ -1,20 +1,33 @@
-<h1>MAKE A TABLE THING AND THEN</h1>
-<h1>ITERATE THROUGH A THING THAT WE</h1>
-<h2>pass to it</h2>
-<h3>probably something like</h3>
-<h3>high</h3>
-<h4>scooooreeesssss</h4>
-<h1>BUTTON AS WELL HERE</h1>
-<h4>it calls a thing</h4>
-<h5>start the mothafucking game</h5>
+<div class="pure-g">
+	<h1 id="index-title">EDA QUICKDRAW</h1>
+</div>
 
-<ul>
-	<% @top_10_players.each do |player| %>
-	<li>
-		<%= player[0] %>: <%= player[1] %>
-	</li>
-	<% end %>
-</ul>
+	<table class="pure-table">
+	    <thead class="table-head">
+	        <tr>
+	            <th>#</th>
+	            <th>Player Name</th>
+	            <th>Score</th>
+	        </tr>
+	    </thead>
 
-<%= button_to "start the game!", game_path, method: :get  %>
-<%= button_to 'sign out', destroy_player_session_path, method: :delete  %>
+	    <tbody>
+			<% @top_10_players.each do |player| %>
+			<% i = 1 %>
+	      <tr>
+	        <td><%= i %></td>
+	        <td><%= player[0] %></td>
+	        <td><%= player[1] %></td>
+	      </tr>
+			<% i += 1 %>
+			<% end %>
+	    </tbody>
+	</table>
+
+<div class="pure-g">
+	<div id="button-holder" class="">
+		<%= button_to "start the game!", game_path, method: :get, class: 'pure-u-1-1 button-xlarge pure-button'  %>
+		<%= button_to 'sign out', destroy_player_session_path, method: :delete, class: 'pure-u-1-1 button-xlarge pure-button'  %>
+	</div>
+</div>
+

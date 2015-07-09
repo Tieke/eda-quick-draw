@@ -1,0 +1,38 @@
+body {
+	height:100%;
+	width:100%;
+	background-image: url('the-floor.png');
+	background-size: cover;
+}
+
+.pure-table {
+  background-color: rgba(240, 110, 140, .8);
+  background-color-alpha: 60%;
+	margin: 20px auto;
+	font-family: 'Orbitron';
+	font-size: 1.25em;
+}
+
+.pure-table th {
+	background-color: white;
+}
+
+#button-holder {
+	margin: 0 auto ;
+}
+
+.pure-button {
+	margin: 10px 0px;
+	background-color: white;
+	font-size: 1.25em;
+	border-radius: 4%;
+}
+
+#index-title {
+	color: #ED6D8E;
+	margin: 20px auto;
+}
+
+.pure-g {
+
+}

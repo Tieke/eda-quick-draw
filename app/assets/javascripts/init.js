@@ -122,7 +122,7 @@ function queueLoaded(event)
 
     // add intance of ballhit sound
     ballhitSound = createjs.Sound.createInstance("ballhit")
-    console.log(ballhitSound.volume * createjs.Sound.getVolume());
+    // console.log(ballhitSound.volume * createjs.Sound.getVolume());
 
     //add instance of deathSound
     deathSound = createjs.Sound.createInstance("deathSound");
@@ -288,7 +288,7 @@ function sendPoints(scoreObject) {
         url: "http://localhost:3000/scores",
         data: scoreObject
     }).done(function (response) {
-        console.log('YES - sendPoints');
+        // console.log('YES - sendPoints');
         alert("Your high score: " + response);
     }).fail(function (err) {
         alert(err);
@@ -313,7 +313,7 @@ function updateTime()
     else
     {
         timerText.text = "Time: " + gameTime
-    createjs.Sound.play("tick");
+    // createjs.Sound.play("tick");
     }
 }
 
