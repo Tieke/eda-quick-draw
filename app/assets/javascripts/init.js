@@ -90,7 +90,7 @@ function queueLoaded(event)
     backgroundImage = new createjs.Bitmap(queue.getResult("backgroundImage"))
     backgroundImage.scaleY = windowHeight / 768
     backgroundImage.scaleX = windowWidth / 1024
-    stage.addChild(backgroundImage);
+    // stage.addChild(backgroundImage);
 
     //Add Score
     scoreText = new createjs.Text("score: " + score.toString(), "36px Arial", "#FFF");
@@ -122,7 +122,7 @@ function queueLoaded(event)
 
     // add intance of ballhit sound
     ballhitSound = createjs.Sound.createInstance("ballhit")
-    console.log(ballhitSound.volume * createjs.Sound.getVolume());
+    // console.log(ballhitSound.volume * createjs.Sound.getVolume());
 
     //add instance of deathSound
     deathSound = createjs.Sound.createInstance("deathSound");
@@ -262,7 +262,7 @@ function handleMouseDown(event) {
     	stage.removeChild(animation);
     	batDeath();
     	score += 100;
-    	scoreText.text = "1UP: " + score.toString();
+    	scoreText.text = "score: " + score.toString();
         deathSound.play();
     	
         //Make it harder next time
@@ -277,7 +277,7 @@ function handleMouseDown(event) {
     {
     	//Miss
     	score -= 10;
-    	scoreText.text = "1UP: " + score.toString();
+    	scoreText.text = "score: " + score.toString();
 
     }
 }
@@ -288,8 +288,9 @@ function sendPoints(scoreObject) {
         url: "http://localhost:3000/scores",
         data: scoreObject
     }).done(function (response) {
-        console.log('YES - sendPoints');
-        alert("Your high score: " + response);
+        console.log(response);
+        alert("Congratulations!\nYou scored: " + response[1] + "\nYour high score is: " + response[0]);
+        window.location.href = 'http://localhost:3000/';
     }).fail(function (err) {
         alert(err);
     });
@@ -298,7 +299,7 @@ function sendPoints(scoreObject) {
 function updateTime()
 {
     gameTime += 1;
-    if(gameTime > 60)
+    if(gameTime > 5)
     {
         //End Game and Clean up
         timerText.text = "fin";
@@ -309,11 +310,12 @@ function updateTime()
         // var si =createjs.Sound.play("gameOverSound");
         clearInterval(gameTimer);
         sendPoints({"points": score});
+
     }
     else
     {
         timerText.text = "Time: " + gameTime
-    createjs.Sound.play("tick");
+    // createjs.Sound.play("tick");
     }
 }
 
