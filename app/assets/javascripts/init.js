@@ -142,7 +142,7 @@ function queueLoaded(event)
     // Create bat death spritesheet
     batDeathSpriteSheet = new createjs.SpriteSheet({
         "images": [queue.getResult('batDeath')],
-        "frames": {"width": 270.78, "height" : 160},
+        "frames": {"width": 198, "height" : 117},
         "animations": {"die": [0,7, false,1 ] }
     });
 
@@ -249,7 +249,7 @@ function handleMouseDown(event) {
     var distY = Math.abs(ballhitY - spriteY);
 
     // Anywhere in the body or head is a hit - but not the wings
-    if(distX < 160 && distX > 40 && distY < 120 )
+    if(distX < 30 && distY < 59 )
     {
     	//Hit
     	stage.removeChild(animation);
