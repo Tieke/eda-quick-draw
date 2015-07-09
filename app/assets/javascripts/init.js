@@ -22,7 +22,6 @@ var scoreText;
 var gameTimer;
 var gameTime = 0;
 var timerText;
-var backgroundImage;
 var ballhitSound;
 var deathSound
 var spriteSheetArray;
@@ -38,8 +37,6 @@ function onWindowResize() {
     context = canvas.getContext('2d');
     context.canvas.width = windowWidth;
     context.canvas.height = windowHeight;
-    backgroundImage.scaleY = windowHeight / 768
-    backgroundImage.scaleX = windowWidth / 1024
     timerText.x = windowWidth - 180;
     timerText.y = 10;
 }
@@ -62,7 +59,6 @@ window.onload = function()
 
     //Create a load manifest for all assets
     queue.loadManifest([
-        {id: 'backgroundImage', src: 'assets/the-floor.png'},
         {id: 'paddle', src: 'assets/paddle.png'},
         {id: 'crossHair', src: 'assets/crosshair.png'},
         {id: 'ballhit', src: 'assets/ballhit.mp3'},
@@ -87,11 +83,6 @@ window.onload = function()
 
 function queueLoaded(event)
 {
-    // Add background image
-    backgroundImage = new createjs.Bitmap(queue.getResult("backgroundImage"))
-    backgroundImage.scaleY = windowHeight / 768
-    backgroundImage.scaleX = windowWidth / 1024
-    stage.addChild(backgroundImage);
 
     //Add Score
     scoreText = new createjs.Text("score: " + score.toString(), "36px Arial", "#FFF");

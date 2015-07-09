@@ -43,8 +43,13 @@ body {
 	border-radius: 4%;
 }
 
+.logo {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 #index-title {
-	color: #E04A3B;
+	/*color: #E04A3B;*/
 	margin: 20px auto;
 }
 
