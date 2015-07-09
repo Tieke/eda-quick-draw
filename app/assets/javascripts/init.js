@@ -27,6 +27,7 @@ var ballhitSound;
 var deathSound
 var spriteSheetArray;
 
+
 window.addEventListener( 'resize', onWindowResize, false );
 
 function onWindowResize() {

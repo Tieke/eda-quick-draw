@@ -1,6 +1,21 @@
+
 <div class="pure-g">
 	<h1 id="index-title">EDA QUICKDRAW</h1>
 </div>
+
+<div class="scene_element scene_element--fadein">
+	<img id="logo" class="animated fadeInDown" src="assets/quick-draw-logo.png">
+	<h1>MAKE A TABLE THING AND THEN</h1>
+	<h1>ITERATE THROUGH A THING THAT WE</h1>
+	<h2>pass to it</h2>
+	<h3>probably something like</h3>
+	<h3>high</h3>
+	<h4>scooooreeesssss</h4>
+	<h1>BUTTON AS WELL HERE</h1>
+	<h4>it calls a thing</h4>
+	<h5>start the mothafucking game</h5>
+<div  class="animated slideInUp">
+
 
 	<table class="pure-table">
 	    <thead class="table-head">
@@ -29,5 +44,15 @@
 		<%= button_to "start the game!", game_path, method: :get, class: 'pure-u-1-1 button-xlarge pure-button'  %>
 		<%= button_to 'sign out', destroy_player_session_path, method: :delete, class: 'pure-u-1-1 button-xlarge pure-button'  %>
 	</div>
+</div>
+
+<%= button_to "start the game!", game_path, method: :get  %>
+<%= button_to 'sign out', destroy_player_session_path, method: :delete  %>
+
+</div>
+  
+<script src="assets/logo.js"></script>
+<script src="assets/jquery.smoothState.js"></script>
+<script src="assets/players.js"></script>
 </div>
 
