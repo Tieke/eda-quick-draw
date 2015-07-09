@@ -83,7 +83,6 @@ window.onload = function()
 
 function queueLoaded(event)
 {
-
     //Add Score
     scoreText = new createjs.Text("score: " + score.toString(), "36px Arial", "#FFF");
     scoreText.x = 10;
@@ -280,8 +279,9 @@ function sendPoints(scoreObject) {
         url: "http://localhost:3000/scores",
         data: scoreObject
     }).done(function (response) {
-        // console.log('YES - sendPoints');
-        alert("Your high score: " + response);
+        console.log(response);
+        alert("Congratulations!\nYou scored: " + response[1] + "\nYour high score is: " + response[0]);
+        window.location.href = 'http://localhost:3000/';
     }).fail(function (err) {
         alert(err);
     });
@@ -290,7 +290,7 @@ function sendPoints(scoreObject) {
 function updateTime()
 {
     gameTime += 1;
-    if(gameTime > 60)
+    if(gameTime > 5)
     {
         //End Game and Clean up
         timerText.text = "fin";
@@ -301,6 +301,7 @@ function updateTime()
         // var si =createjs.Sound.play("gameOverSound");
         clearInterval(gameTimer);
         sendPoints({"points": score});
+
     }
     else
     {
