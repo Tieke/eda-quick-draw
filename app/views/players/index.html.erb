@@ -2,6 +2,30 @@
 	<h1 id="index-title">EDA QUICKDRAW</h1>
 </div>
 
+<div id="everything-holder">
+	<% if @message %>
+			<table class="pure-table">
+	    <thead class="table-head">
+	        <tr>
+	            <th>Last Score</th>
+	            <th>High Score</th>
+	        </tr>
+	    </thead>
+
+        <tbody>
+          <tr>
+            <td><%= @message[0] %></td>
+            <td><%= @message[1] %></td>
+          </tr>
+        </tbody>
+    </table>
+
+	<% end %>
+
+<div class="pure-g">
+	<h2 id="scores-title">High Scores</h2>
+</div>
+
 	<table class="pure-table">
 	    <thead class="table-head">
 	        <tr>
@@ -12,22 +36,24 @@
 	    </thead>
 
 	    <tbody>
-			<% @top_10_players.each do |player| %>
 			<% i = 1 %>
+			<% @top_10_players.each do |player| %>
 	      <tr>
 	        <td><%= i %></td>
 	        <td><%= player[0] %></td>
 	        <td><%= player[1] %></td>
 	      </tr>
-			<% i += 1 %>
+				<% i += 1 %>
 			<% end %>
 	    </tbody>
 	</table>
 
-<div class="pure-g">
-	<div class="button-holder">
-		<%= button_to "start the game!", game_path, method: :get, class: 'pure-u-1-1 button-xlarge pure-button'  %>
-		<%= button_to 'sign out', destroy_player_session_path, method: :delete, class: 'pure-u-1-1 button-xlarge pure-button'  %>
+	<div class="pure-g">
+		<div class="button-holder">
+			<%= button_to "start the game!", game_path, method: :get, class: 'pure-u-1-1 button-xlarge pure-button'  %>
+			<%= button_to 'sign out', destroy_player_session_path, method: :delete, class: 'pure-u-1-1 button-xlarge pure-button'  %>
+		</div>
 	</div>
+	
 </div>
 

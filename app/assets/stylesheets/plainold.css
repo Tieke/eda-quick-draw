@@ -44,8 +44,11 @@ body {
 }
 
 #index-title {
-	color: #E04A3B;
 	margin: 20px auto;
+}
+
+#scores-title {
+	margin: 5px auto;
 }
 
 .center {
@@ -92,5 +95,9 @@ input[type="submit"] {
 
 input[type="password"], input[type="text"], input[type="email"] {
 	width: 300px;
+}
+
+#everything-holder {
+	z-index: 1;
 }
 
