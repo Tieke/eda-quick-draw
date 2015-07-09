@@ -67,7 +67,7 @@ window.onload = function()
         {id: 'tick', src: 'assets/tick.mp3'},
         {id: 'deathSound', src: 'assets/die.mp3'},
         {id: 'tutorsSpritesheet', src: 'assets/all-tutors-Spritesheet.png'},
-        {id: 'batDeath', src: 'assets/batDeath.png'},
+        {id: 'batDeath', src: 'assets/cloudDeath.png'},
     ]);
     queue.load();
 
