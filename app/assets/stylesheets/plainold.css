@@ -103,7 +103,6 @@ body {
 .links-holder {
 	background-color: rgba(224, 74, 59, .8);
 	background-color-alpha: 50%;
-	/*position: fixed;*/ 	
   bottom: 40px;
   width: 100%;
   text-align: center;

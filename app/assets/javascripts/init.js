@@ -278,15 +278,15 @@ function handleMouseDown(event) {
 function sendPoints(scoreObject) {
     $.ajax({
         type: "POST",
-        url: "http://localhost:3000/scores",
+        url: "https://eda-quick-draw.herokuapp.com/scores",
         data: scoreObject
     }).done(function (response) {
         console.log(response);
         alert("Congratulations!\nYou scored: " + response[1] + "\nYour high score is: " + response[0]);
-        window.location.href = 'http://localhost:3000/';
+        window.location.href = 'https://eda-quick-draw.herokuapp.com/';
     }).fail(function (err) {
         alert(err);
-        window.location.href = 'http://localhost:3000/';
+        window.location.href = 'https://eda-quick-draw.herokuapp.com/';
     });
 }
 
