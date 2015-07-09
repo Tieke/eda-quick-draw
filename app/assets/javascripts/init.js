@@ -84,15 +84,16 @@ window.onload = function()
 function queueLoaded(event)
 {
     //Add Score
-    scoreText = new createjs.Text("score: " + score.toString(), "36px Arial", "#FFF");
-    scoreText.x = 10;
+    scoreText = new createjs.Text("score: " + score.toString(), "36px Numans", "#FFF");
+    scoreText.x = 160;
     scoreText.y = 10;
     stage.addChild(scoreText);
 
     //Ad Timer
-    timerText = new createjs.Text("Time: " + gameTime.toString(), "36px Arial", "#FFF");
+    timerText = new createjs.Text("Time: " + gameTime.toString(), "36px Numans", "#FFF");
     timerText.x = windowWidth - 180;
     timerText.y = 10;
+    timerText.shadow = 5
     stage.addChild(timerText);
 
     // Create paddle
@@ -284,6 +285,7 @@ function sendPoints(scoreObject) {
         window.location.href = 'http://localhost:3000/';
     }).fail(function (err) {
         alert(err);
+        window.location.href = 'http://localhost:3000/';
     });
 }
 

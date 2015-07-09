@@ -1,16 +1,34 @@
 body {
 	height:100%;
 	width:100%;
-	background-image: url('the-floor.png');
-	background-size: cover;
+	/*background-image: url('the-floor.png');
+	background-size: 100% 100%;*/
 	color: #E04A3B;
+}
+
+#background {
+	min-height: 100%;
+	min-width: 100%;
+
+	width: 100%;
+  height: auto;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -5;
+}
+
+#myCanvas {
+	position: fixed;
+	z-index: 5;
 }
 
 .pure-table {
   background-color: rgba(224, 74, 59, .8);
   background-color-alpha: 60%;
 	margin: 20px auto;
-	font-family: 'Orbitron';
+	font-family: 'Numans', sans-serif;
 	font-size: 1.25em;
 	color: black;
 }
@@ -46,6 +64,18 @@ body {
 .logo {
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.index-logo {
+	float: left;
+	width: 160px;
+	margin-left: 10px;
+	z-index: -1;
+	position: fixed;
+}
+
+.logo-container {
+
 }
 
 #index-title {
@@ -96,7 +126,9 @@ body {
 input[type="submit"] {
 	border-radius: 4%;
 	background-color: white;
-	box-shadow: inset 0 1px 3px #ddd
+	box-shadow: inset 0 1px 3px #ddd;
+	font-family: 'Numans', sans-serif;
+
 }
 
 input[type="password"], input[type="text"], input[type="email"] {
