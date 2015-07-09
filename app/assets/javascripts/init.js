@@ -292,7 +292,7 @@ function sendPoints(scoreObject) {
 function updateTime()
 {
     gameTime += 1;
-    if(gameTime > 5)
+    if(gameTime > 60)
     {
         //End Game and Clean up
         timerText.text = "fin";
