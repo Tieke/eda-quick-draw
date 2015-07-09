@@ -1,9 +1,27 @@
 body {
 	height:100%;
 	width:100%;
-	background-image: url('the-floor.png');
-	background-size: cover;
+	/*background-image: url('the-floor.png');
+	background-size: 100% 100%;*/
 	color: #E04A3B;
+}
+
+#background {
+	min-height: 100%;
+	min-width: 100%;
+
+	width: 100%;
+  height: auto;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -5;
+}
+
+#myCanvas {
+	position: fixed;
+	z-index: 5;
 }
 
 .pure-table {
@@ -52,6 +70,8 @@ body {
 	float: left;
 	width: 160px;
 	margin-left: 10px;
+	z-index: -1;
+	position: fixed;
 }
 
 .logo-container {
