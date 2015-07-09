@@ -1,26 +1,51 @@
-<h2>Log in</h2>
+<div class="pure-g">
+  <h1 class="center" id="index-title">EDA QUICKDRAW</h1>
+</div>
 
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="pure-form">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
+<div class="pure-g">
+  <div class="center" id="login-holder">
 
-  <div class="pure-form">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
+  <h2>Log in</h2>
 
-  <% if devise_mapping.rememberable? -%>
-    <div class="pure-form">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="pure-g">
+    <div class="form-holder">
+      <div class="pure-form">
+        <%= f.label :email %><br />
+        <%= f.email_field :email, autofocus: true %>
+      </div>
     </div>
-  <% end -%>
-
-  <div class="pure-button">
-    <%= f.submit "Log in" %>
   </div>
-<% end %>
 
-<%= render "devise/shared/links" %>
+    <div class="form-holder">
+      <div class="pure-form">
+        <%= f.label :password %><br />
+        <%= f.password_field :password, autocomplete: "off" %>
+      </div>
+    </div>
+
+    <div class="form-holder">
+    <% if devise_mapping.rememberable? -%>
+      <div class="pure-form">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
+      </div>
+    <% end -%>
+    </div>
+
+    
+    <div class="devise-button actions">
+      <%= f.submit "Log in" %>
+    </div>
+
+  <% end %>
+
+  </div>
+</div>
+
+<div class="pure-g links-holder">
+  <div class="center">
+    <%= render "devise/shared/links" %>  
+  </div>
+</div>
+  

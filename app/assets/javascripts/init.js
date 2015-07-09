@@ -262,7 +262,7 @@ function handleMouseDown(event) {
     	stage.removeChild(animation);
     	batDeath();
     	score += 100;
-    	scoreText.text = "1UP: " + score.toString();
+    	scoreText.text = "score: " + score.toString();
         deathSound.play();
     	
         //Make it harder next time
@@ -277,7 +277,7 @@ function handleMouseDown(event) {
     {
     	//Miss
     	score -= 10;
-    	scoreText.text = "1UP: " + score.toString();
+    	scoreText.text = "score: " + score.toString();
 
     }
 }
