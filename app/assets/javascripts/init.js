@@ -71,9 +71,6 @@ var initializeGame = function() {
         // console.log("hello?", queue);
         queue.load();
         queue.on("completed", queueLoaded, this);
-
-        
-
 };
 
 var queueLoaded = function(event) {
@@ -277,22 +274,22 @@ function handleMouseDown(event) {
 function sendPoints(scoreObject) {
     $.ajax({
         type: "POST",
-        url: "localhost:3000/scores",
+        url: "/scores",
         data: scoreObject
     }).done(function (response) {
         console.log(response);
         alert("Congratulations!\nYou scored: " + response[1] + "\nYour high score is: " + response[0]);
-        window.location.href = 'localhost:3000/';
+        window.location.href = '/';
     }).fail(function (err) {
         alert(err);
-        window.location.href = 'localhost:3000/';
+        window.location.href = '/';
     });
 }
 
 function updateTime()
 {
     gameTime += 1;
-    if(gameTime > 60)
+    if(gameTime > 5)
     {
         //End Game and Clean up
         timerText.text = "fin";
