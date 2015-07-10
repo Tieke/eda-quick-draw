@@ -53,7 +53,6 @@ var initializeGame = function() {
         //Set up the Asset Queue and load sounds 
         queue = new createjs.LoadQueue(false);
         queue.installPlugin(createjs.Sound);
-        queue.on("complete", queueLoaded, this);
         createjs.Sound.alternateExtensions = ["ogg"];
 
         //Create a load manifest for all assets
