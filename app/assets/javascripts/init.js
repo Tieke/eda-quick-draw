@@ -59,15 +59,15 @@ window.onload = function()
 
     //Create a load manifest for all assets
     queue.loadManifest([
-        {id: 'paddle', src: 'assets/paddle.png'},
-        {id: 'crossHair', src: 'assets/crosshair.png'},
-        {id: 'ballhit', src: 'assets/ballhit.mp3'},
-        {id: 'background', src: 'assets/background.mp3'},
-        {id: 'gameOverSound', src: 'assets/gameOver.mp3'},
-        {id: 'tick', src: 'assets/tick.mp3'},
-        {id: 'deathSound', src: 'assets/die.mp3'},
-        {id: 'tutorsSpritesheet', src: 'assets/all-tutors-Spritesheet.png'},
-        {id: 'batDeath', src: 'assets/batDeath.png'},
+        {id: 'paddle', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/paddle.png'},
+        {id: 'crossHair', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/crosshair.png'},
+        {id: 'ballhit', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/ballhit.mp3'},
+        {id: 'background', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/background.mp3'},
+        {id: 'gameOverSound', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/gameOver.mp3'},
+        {id: 'tick', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/tick.mp3'},
+        {id: 'deathSound', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/die.mp3'},
+        {id: 'tutorsSpritesheet', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/all-tutors-Spritesheet.png'},
+        {id: 'batDeath', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/cloudDeath.png'},
     ]);
     queue.load();
 
@@ -122,6 +122,7 @@ function queueLoaded(event)
     // Create bat spritesheet
     tutorsSpritesheet = new createjs.SpriteSheet({
         "images": [queue.getResult('tutorsSpritesheet')],
+        // "frames": {"width": 396, "height": 234},
         "frames": {"width": 198, "height": 117},
         "animations": { "dan":   [0,4],
                         "darcy":  [5,9],
@@ -141,7 +142,7 @@ function queueLoaded(event)
     // Create bat death spritesheet
     batDeathSpriteSheet = new createjs.SpriteSheet({
         "images": [queue.getResult('batDeath')],
-        "frames": {"width": 198, "height" : 148},
+        "frames": {"width": 198, "height" : 117},
         "animations": {"die": [0,7, false,1 ] }
     });
 
@@ -258,8 +259,8 @@ function handleMouseDown(event) {
         deathSound.play();
     	
         //Make it harder next time
-    	enemyYSpeed *= 1.25;
-    	enemyXSpeed *= 1.3;
+    	enemyYSpeed *= 1.3;
+    	enemyXSpeed *= 1.35;
 
     	//Create new enemy
     	var timeToCreate = Math.floor((Math.random()*3500)+1);
@@ -277,15 +278,15 @@ function handleMouseDown(event) {
 function sendPoints(scoreObject) {
     $.ajax({
         type: "POST",
-        url: "https://eda-quick-draw.herokuapp.com/scores",
+        url: "/scores",
         data: scoreObject
     }).done(function (response) {
         console.log(response);
         alert("Congratulations!\nYou scored: " + response[1] + "\nYour high score is: " + response[0]);
-        window.location.href = 'https://eda-quick-draw.herokuapp.com/';
+        window.location.href = '/';
     }).fail(function (err) {
         alert(err);
-        window.location.href = 'https://eda-quick-draw.herokuapp.com/';
+        window.location.href = '/';
     });
 }
 
