@@ -41,49 +41,48 @@ function onWindowResize() {
     timerText.y = 10;
 }
 
-window.onload = function()
-{
+var initializeGame = function() {
 
-    //Set up the Canvas with Size and height
-    var canvas = document.getElementById('myCanvas');
-    context = canvas.getContext('2d');
-    context.canvas.width = windowWidth;
-    context.canvas.height = windowHeight;
-    stage = new createjs.Stage("myCanvas");
+        //Set up the Canvas with Size and height
+        var canvas = document.getElementById('myCanvas');
+        context = canvas.getContext('2d');
+        context.canvas.width = windowWidth;
+        context.canvas.height = windowHeight;
+        stage = new createjs.Stage("myCanvas");
 
-    //Set up the Asset Queue and load sounds 
-    queue = new createjs.LoadQueue(false);
-    queue.installPlugin(createjs.Sound);
-    queue.on("complete", queueLoaded, this);
-    createjs.Sound.alternateExtensions = ["ogg"];
+        //Set up the Asset Queue and load sounds 
+        queue = new createjs.LoadQueue(false);
+        queue.installPlugin(createjs.Sound);
+        queue.on("complete", queueLoaded, this);
+        createjs.Sound.alternateExtensions = ["ogg"];
 
-    //Create a load manifest for all assets
-    queue.loadManifest([
-        {id: 'paddle', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/paddle.png'},
-        {id: 'crossHair', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/crosshair.png'},
-        {id: 'ballhit', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/ballhit.mp3'},
-        {id: 'background', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/background.mp3'},
-        {id: 'gameOverSound', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/gameOver.mp3'},
-        {id: 'tick', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/tick.mp3'},
-        {id: 'deathSound', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/die.mp3'},
-        {id: 'tutorsSpritesheet', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/all-tutors-Spritesheet.png'},
-        {id: 'batDeath', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/batDeath.png'},
-    ]);
-    console.log("hello?", queue);
-    queue.load();
+        //Create a load manifest for all assets
+        queue.loadManifest([
+            {id: 'paddle', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/paddle.png'},
+            {id: 'crossHair', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/crosshair.png'},
+            {id: 'ballhit', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/ballhit.mp3'},
+            {id: 'background', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/background.mp3'},
+            {id: 'gameOverSound', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/gameOver.mp3'},
+            {id: 'tick', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/tick.mp3'},
+            {id: 'deathSound', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/die.mp3'},
+            {id: 'tutorsSpritesheet', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/all-tutors-Spritesheet.png'},
+            {id: 'batDeath', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/batDeath.png'},
+        ]);
+        // console.log("hello?", queue);
+        queue.load();
+        queue.on("completed", queueLoaded, this);
 
-    
+        
+
+};
+
+var queueLoaded = function(event) {
     //Create a timer that updates once per second
-   setGameTimer = function() {
-    gameTimer = setInterval(updateTime, 1000);
-  }
-
-  setTimeout(setGameTimer(), 5000)
-
-}
-
-function queueLoaded(event)
-{
+     setGameTimer = function() {
+      gameTimer = setInterval(updateTime, 1000);
+    }
+    setTimeout(setGameTimer(), 5000)
+    
     //Add Score
     scoreText = new createjs.Text("score: " + score.toString(), "36px Numans", "#FFF");
     scoreText.x = 160;
@@ -278,15 +277,15 @@ function handleMouseDown(event) {
 function sendPoints(scoreObject) {
     $.ajax({
         type: "POST",
-        url: "https://eda-quick-draw.herokuapp.com/scores",
+        url: "localhost:3000/scores",
         data: scoreObject
     }).done(function (response) {
         console.log(response);
         alert("Congratulations!\nYou scored: " + response[1] + "\nYour high score is: " + response[0]);
-        window.location.href = 'https://eda-quick-draw.herokuapp.com/';
+        window.location.href = 'localhost:3000/';
     }).fail(function (err) {
         alert(err);
-        window.location.href = 'https://eda-quick-draw.herokuapp.com/';
+        window.location.href = 'localhost:3000/';
     });
 }
 
