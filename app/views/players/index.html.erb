@@ -1,7 +1,8 @@
-
 	<div class="logo-container animated fadeIn">
 		<img id="logo index-title" class="index-logo" src="https://s3.amazonaws.com/eda-quick-draw/assets/quick-draw-logo.png">
 	</div>
+
+<div id="index">
 
 		<% if @message %>
 				<table class="previously-on-quick-draw pure-table animated fadeInRight">
@@ -52,9 +53,15 @@
 
 		<div class="pure-g">
 			<div class="button-holder">
-				<%= button_to "start the game!", game_path, method: :get, class: 'pure-u-1-1 button-xlarge pure-button'  %>
+				<button class="pure-u-1-1 button-xlarge pure-button start-game">start game</button>
 				<%= button_to 'sign out', destroy_player_session_path, method: :delete, class: 'pure-u-1-1 button-xlarge pure-button'  %>
 			</div>
 		</div>
 		
 	</div>
+</div>
+
+<div id="game">
+<canvas id="myCanvas"></canvas>
+
+</div>
