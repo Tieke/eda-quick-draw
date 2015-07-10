@@ -69,6 +69,7 @@ window.onload = function()
         {id: 'tutorsSpritesheet', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/all-tutors-Spritesheet.png'},
         {id: 'batDeath', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/batDeath.png'},
     ]);
+    console.log("hello?", queue);
     queue.load();
 
     
