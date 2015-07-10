@@ -53,7 +53,6 @@ var initializeGame = function() {
     //Set up the Asset Queue and load sounds 
     queue = new createjs.LoadQueue(false);
     queue.installPlugin(createjs.Sound);
-    queue.on("complete", queueLoaded, this);
     createjs.Sound.alternateExtensions = ["ogg"];
 
     //Create a load manifest for all assets
@@ -66,9 +65,10 @@ var initializeGame = function() {
         {id: 'tick', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/tick.mp3'},
         {id: 'deathSound', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/die.mp3'},
         {id: 'tutorsSpritesheet', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/all-tutors-Spritesheet.png'},
-        {id: 'batDeath', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/batDeath.png'},
+        {id: 'batDeath', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/cloudDeath.png'},
     ]);
     queue.load();
+    queue.on("complete", queueLoaded, this);
 }
 
 //Create a timer that updates once per second
