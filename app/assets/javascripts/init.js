@@ -74,6 +74,7 @@ var initializeGame = function() {
 };
 
 var queueLoaded = function(event) {
+
     //Create a timer that updates once per second
      setGameTimer = function() {
       gameTimer = setInterval(updateTime, 1000);
@@ -119,6 +120,7 @@ var queueLoaded = function(event) {
     // Create bat spritesheet
     tutorsSpritesheet = new createjs.SpriteSheet({
         "images": [queue.getResult('tutorsSpritesheet')],
+        // "frames": {"width": 396, "height": 234},
         "frames": {"width": 198, "height": 117},
         "animations": { "dan":   [0,4],
                         "darcy":  [5,9],
@@ -138,7 +140,7 @@ var queueLoaded = function(event) {
     // Create bat death spritesheet
     batDeathSpriteSheet = new createjs.SpriteSheet({
         "images": [queue.getResult('batDeath')],
-        "frames": {"width": 198, "height" : 148},
+        "frames": {"width": 198, "height" : 117},
         "animations": {"die": [0,7, false,1 ] }
     });
 
@@ -255,8 +257,8 @@ function handleMouseDown(event) {
         deathSound.play();
     	
         //Make it harder next time
-    	enemyYSpeed *= 1.25;
-    	enemyXSpeed *= 1.3;
+    	enemyYSpeed *= 1.3;
+    	enemyXSpeed *= 1.35;
 
     	//Create new enemy
     	var timeToCreate = Math.floor((Math.random()*3500)+1);

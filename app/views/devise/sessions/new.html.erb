@@ -1,51 +1,53 @@
-<div class="animated fadeInDown pure-g">
-  <img id="logo index-title" class="logo"  src="https://s3.amazonaws.com/eda-quick-draw/assets/quick-draw-logo.png">
-</div>
+<div id="everything-holder">
+  <div class="logo-container animated fadeInDown pure-g">
+    <img id="logo index-title" class="logo"  src="https://s3.amazonaws.com/eda-quick-draw/assets/quick-draw-logo.png">
+  </div>
 
-<div class="pure-g animated fadeIn">
-  <div class="center" id="login-holder">
+  <div class="pure-g animated fadeIn">
+    <div class="center" id="login-holder">
 
-  <h2>Log in</h2>
+    <h2>Log in</h2>
 
-  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="pure-g">
-    <div class="form-holder">
-      <div class="pure-form">
-        <%= f.label :email %><br />
-        <%= f.email_field :email, autofocus: true %>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="pure-g">
+      <div class="form-holder">
+        <div class="pure-form">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true %>
+        </div>
       </div>
+    </div>
+
+      <div class="form-holder">
+        <div class="pure-form">
+          <%= f.label :password %><br />
+          <%= f.password_field :password, autocomplete: "off" %>
+        </div>
+      </div>
+
+      <div class="form-holder">
+      <% if devise_mapping.rememberable? -%>
+        <div class="pure-form">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end -%>
+      </div>
+
+      
+      <div class="devise-button actions">
+        <%= f.submit "Log in" %>
+      </div>
+
+    <% end %>
+
     </div>
   </div>
 
-    <div class="form-holder">
-      <div class="pure-form">
-        <%= f.label :password %><br />
-        <%= f.password_field :password, autocomplete: "off" %>
-      </div>
-    </div>
-
-    <div class="form-holder">
-    <% if devise_mapping.rememberable? -%>
-      <div class="pure-form">
-        <%= f.check_box :remember_me %>
-        <%= f.label :remember_me %>
-      </div>
-    <% end -%>
-    </div>
-
+  <div class="pure-g links-holder animated fadeIn bottom">
     
-    <div class="devise-button actions">
-      <%= f.submit "Log in" %>
-    </div>
-
-  <% end %>
+      <%= render "devise/shared/links" %>  
 
   </div>
+    
 </div>
-
-<div class="pure-g links-holder animated fadeInUp">
-  <div class="center">
-    <%= render "devise/shared/links" %>  
-  </div>
-</div>
-  

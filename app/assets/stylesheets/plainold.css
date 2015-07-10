@@ -4,6 +4,7 @@ body {
 	/*background-image: url('the-floor.png');
 	background-size: 100% 100%;*/
 	color: #E04A3B;
+	margin-top: 20px
 }
 
 #background {
@@ -24,12 +25,27 @@ body {
 	z-index: 5;
 }
 
+.previously-on-quick-draw {
+	top: 58px;
+	right: 20px;
+	position: fixed;
+	z-index: -3;
+}
+
+.errors {
+	position: fixed;
+	z-index: -4;
+	top: 100px;
+	left: 20px;
+}
+
+
 .pure-table {
   background-color: rgba(224, 74, 59, .8);
   background-color-alpha: 60%;
 	margin: 20px auto;
 	font-family: 'Numans', sans-serif;
-	font-size: 1.25em;
+	font-size: 1.25vw;
 	color: black;
 }
 
@@ -37,27 +53,20 @@ body {
 	background-color: white;
 }
 
-#button-holder {
+#button-holder, .button-holder, .form-holder {
 	margin: 0 auto ;
 }
 
-.button-holder {
-	margin: 0 auto ;
-}
-
-.form-holder {
-	margin: 0 auto ;
-}
 
 .pure-form {
-	margin-top: 20px;
+	margin-top: 8px;
 	min-width: 300px;
 }
 
 .pure-button {
 	margin: 10px 0px;
 	background-color: white;
-	font-size: 1.25em;
+	font-size: 1.25vw;
 	border-radius: 4%;
 }
 
@@ -103,10 +112,20 @@ body {
 .links-holder {
 	background-color: rgba(224, 74, 59, .8);
 	background-color-alpha: 50%;
-  bottom: 40px;
+  bottom: 5px;
   width: 100%;
   text-align: center;
-  font-size: 1.25em;
+  font-size: 1.25vw;
+}
+
+.links-holder a {
+	margin: 5px auto;
+}
+
+.bottom {
+	bottom: 5px;
+	position: fixed;
+	width: 100%;
 }
 
 #login-holder {
@@ -119,7 +138,7 @@ body {
 
 .devise-button {
 	margin-top: 20px;
-	font-size: 1.25em;
+	font-size: 1.25vw;
 }
 
 input[type="submit"] {
@@ -136,5 +155,7 @@ input[type="password"], input[type="text"], input[type="email"] {
 
 #everything-holder {
 	z-index: 1;
+	max-height: 100%
 }
+
 
