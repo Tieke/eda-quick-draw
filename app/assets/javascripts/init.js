@@ -43,43 +43,41 @@ function onWindowResize() {
 
 var initializeGame = function() {
 
-        //Set up the Canvas with Size and height
-        var canvas = document.getElementById('myCanvas');
-        context = canvas.getContext('2d');
-        context.canvas.width = windowWidth;
-        context.canvas.height = windowHeight;
-        stage = new createjs.Stage("myCanvas");
+    //Set up the Canvas with Size and height
+    var canvas = document.getElementById('myCanvas');
+    context = canvas.getContext('2d');
+    context.canvas.width = windowWidth;
+    context.canvas.height = windowHeight;
+    stage = new createjs.Stage("myCanvas");
 
-        //Set up the Asset Queue and load sounds 
-        queue = new createjs.LoadQueue(false);
-        queue.installPlugin(createjs.Sound);
-        createjs.Sound.alternateExtensions = ["ogg"];
+    //Set up the Asset Queue and load sounds 
+    queue = new createjs.LoadQueue(false);
+    queue.installPlugin(createjs.Sound);
+    queue.on("complete", queueLoaded, this);
+    createjs.Sound.alternateExtensions = ["ogg"];
 
-        //Create a load manifest for all assets
-        queue.loadManifest([
-            {id: 'paddle', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/paddle.png'},
-            {id: 'crossHair', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/crosshair.png'},
-            {id: 'ballhit', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/ballhit.mp3'},
-            {id: 'background', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/background.mp3'},
-            {id: 'gameOverSound', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/gameOver.mp3'},
-            {id: 'tick', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/tick.mp3'},
-            {id: 'deathSound', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/die.mp3'},
-            {id: 'tutorsSpritesheet', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/all-tutors-Spritesheet.png'},
-            {id: 'batDeath', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/batDeath.png'},
-        ]);
-        // console.log("hello?", queue);
-        queue.load();
-        queue.on("completed", queueLoaded, this);
-};
+    //Create a load manifest for all assets
+    queue.loadManifest([
+        {id: 'paddle', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/paddle.png'},
+        {id: 'crossHair', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/crosshair.png'},
+        {id: 'ballhit', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/ballhit.mp3'},
+        {id: 'background', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/background.mp3'},
+        {id: 'gameOverSound', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/gameOver.mp3'},
+        {id: 'tick', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/tick.mp3'},
+        {id: 'deathSound', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/die.mp3'},
+        {id: 'tutorsSpritesheet', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/all-tutors-Spritesheet.png'},
+        {id: 'batDeath', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/batDeath.png'},
+    ]);
+    queue.load();
+}
 
-var queueLoaded = function(event) {
+//Create a timer that updates once per second
+setGameTimer = function() {
+    gameTimer = setInterval(updateTime, 1000);
+}
 
-    //Create a timer that updates once per second
-     setGameTimer = function() {
-      gameTimer = setInterval(updateTime, 1000);
-    }
+function queueLoaded(event){
     setTimeout(setGameTimer(), 5000)
-    
     //Add Score
     scoreText = new createjs.Text("score: " + score.toString(), "36px Numans", "#FFF");
     scoreText.x = 160;
