@@ -3,13 +3,13 @@
 		<img id="logo index-title" class="index-logo" src="assets/quick-draw-logo.png">
 	</div>
 
-	<div id="everything-holder" class="animated fadeInRight">
 		<% if @message %>
-				<table class="pure-table">
+				<table class="previously-on-quick-draw pure-table animated fadeInRight">
+				<!-- <h3 id="scores-title">Your last scores:</h3> -->
 		    <thead class="table-head">
 		        <tr>
-		            <th>Last Score</th>
-		            <th>High Score</th>
+		            <th>Your Last Score</th>
+		            <th>Your High Score</th>
 		        </tr>
 		    </thead>
 
@@ -22,9 +22,10 @@
 	    </table>
 
 		<% end %>
+	<div id="everything-holder" class="animated fadeIn">
 
 	<div class="pure-g">
-		<h2 id="scores-title">High Scores</h2>
+		<h2 id="scores-title">Leaderboard:</h2>
 	</div>
 
 		<table class="pure-table">
