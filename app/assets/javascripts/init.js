@@ -27,6 +27,15 @@ var deathSound
 var spriteSheetArray;
 
 
+$(document).on('click', '.start-game', function (e) {
+    e.preventDefault;
+    console.log("does it work");
+    $('#index').hide();
+    $('#game').show();
+    queue.on("complete", queueLoaded, this);
+})
+
+
 window.addEventListener( 'resize', onWindowResize, false );
 
 function onWindowResize() {
@@ -41,8 +50,7 @@ function onWindowResize() {
     timerText.y = 10;
 }
 
-window.onload = function()
-{
+var initializeGame = function () {
 
     //Set up the Canvas with Size and height
     var canvas = document.getElementById('myCanvas');
@@ -54,7 +62,6 @@ window.onload = function()
     //Set up the Asset Queue and load sounds 
     queue = new createjs.LoadQueue(false);
     queue.installPlugin(createjs.Sound);
-    queue.on("complete", queueLoaded, this);
     createjs.Sound.alternateExtensions = ["ogg"];
 
     //Create a load manifest for all assets
@@ -67,18 +74,19 @@ window.onload = function()
         {id: 'tick', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/tick.mp3'},
         {id: 'deathSound', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/die.mp3'},
         {id: 'tutorsSpritesheet', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/all-tutors-Spritesheet.png'},
-        {id: 'batDeath', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/batDeath.png'},
+        {id: 'batDeath', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/cloudDeath.png'},
     ]);
     queue.load();
 
+    // queue.on("complete", queueLoaded, this);
     
-    //Create a timer that updates once per second
-
 
 }
-   setGameTimer = function() {
-    gameTimer = setInterval(updateTime, 1000);
-  }
+
+//Create a timer that updates once per second
+setGameTimer = function() {
+  gameTimer = setInterval(updateTime, 1000);
+}
 
 function queueLoaded(event)
 {
