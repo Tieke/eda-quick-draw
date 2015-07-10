@@ -27,6 +27,15 @@ var deathSound
 var spriteSheetArray;
 
 
+$(document).on('click', '.start-game', function (e) {
+    e.preventDefault;
+    console.log("does it work");
+    $('#index').hide();
+    $('#game').show();
+    queue.on("complete", queueLoaded, this);
+})
+
+
 window.addEventListener( 'resize', onWindowResize, false );
 
 function onWindowResize() {
@@ -68,12 +77,14 @@ var initializeGame = function() {
         {id: 'batDeath', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/cloudDeath.png'},
     ]);
     queue.load();
-    queue.on("complete", queueLoaded, this);
+
+    // queue.on("complete", queueLoaded, this);
+    
 }
 
 //Create a timer that updates once per second
 setGameTimer = function() {
-    gameTimer = setInterval(updateTime, 1000);
+  gameTimer = setInterval(updateTime, 1000);
 }
 
 function queueLoaded(event){
