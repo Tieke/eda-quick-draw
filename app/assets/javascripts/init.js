@@ -67,22 +67,22 @@ window.onload = function()
         {id: 'tick', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/tick.mp3'},
         {id: 'deathSound', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/die.mp3'},
         {id: 'tutorsSpritesheet', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/all-tutors-Spritesheet.png'},
-        {id: 'batDeath', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/cloudDeath.png'},
+        {id: 'batDeath', src: 'https://s3.amazonaws.com/eda-quick-draw/assets/batDeath.png'},
     ]);
     queue.load();
 
     
     //Create a timer that updates once per second
+
+
+}
    setGameTimer = function() {
     gameTimer = setInterval(updateTime, 1000);
   }
 
-  setTimeout(setGameTimer(), 5000)
-
-}
-
 function queueLoaded(event)
 {
+    setTimeout(setGameTimer(), 5000)
     //Add Score
     scoreText = new createjs.Text("score: " + score.toString(), "36px Numans", "#FFF");
     scoreText.x = 160;
