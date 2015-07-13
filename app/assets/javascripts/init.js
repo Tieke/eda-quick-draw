@@ -29,10 +29,11 @@ var spriteSheetArray;
 
 $(document).on('click', '.start-game', function (e) {
     e.preventDefault;
-    console.log("does it work");
     $('#index').hide();
+    console.log("does it work");
     $('#game').show();
-    queue.on("complete", queueLoaded, this);
+    // queue.on("complete", queueLoaded, this);
+    queueLoaded()
 })
 
 
